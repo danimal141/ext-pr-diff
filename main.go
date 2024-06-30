@@ -24,7 +24,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "github_pr_diff",
+	Use:   "ext_pr_diff",
 	Short: "A tool to fetch and display GitHub PR diffs",
 	Long:  `This tool fetches the diff for a specified GitHub Pull Request and displays it in a markdown-friendly format.`,
 	Run: func(cmd *cobra.Command, args []string) {
