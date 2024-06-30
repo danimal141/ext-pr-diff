@@ -1,4 +1,5 @@
 # ext-pr-diff
+This tool is designed to be used for getting AI-generated explanations of code changes. It fetches GitHub Pull Request (PR) diffs and displays them in a markdown format, making it easy to input the changes into a generative AI system for analysis and explanation.
 
 ext-pr-diff is a command-line tool to easily fetch and display GitHub Pull Request (PR) diffs in markdown format.
 
@@ -18,8 +19,7 @@ Before you begin, ensure you have met the following requirements:
 ## Installation
 
 1. Clone the repository:
-
-`git clone https://github.com/danimal141/ext-pr-diff.git`
+h`git clone https://github.com/danimal141/ext-pr-diff.git`
 
 2. Navigate to the project directory:
 
