@@ -254,7 +254,11 @@ This command will fetch the diff for Pull Request #2094 in the spf13/cobra repos
 +       }
 +}
 ```
+
+![use-claude](./images/use-claude.png)
+
 </details>
+
 
 
 ## Contributing
