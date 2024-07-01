@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"regexp"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -17,11 +19,7 @@ type FileChange struct {
 	Patch    string `json:"patch"`
 }
 
-var (
-	prNumber  string
-	repoOwner string
-	repoName  string
-)
+var prLink string
 
 var rootCmd = &cobra.Command{
 	Use:   "ext_pr_diff",
@@ -33,12 +31,8 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.Flags().StringVarP(&prNumber, "pr", "p", "", "Pull Request number (required)")
-	rootCmd.Flags().StringVarP(&repoOwner, "owner", "o", "", "Repository owner (required)")
-	rootCmd.Flags().StringVarP(&repoName, "repo", "r", "", "Repository name (required)")
-	rootCmd.MarkFlagRequired("pr")
-	rootCmd.MarkFlagRequired("owner")
-	rootCmd.MarkFlagRequired("repo")
+	rootCmd.Flags().StringVarP(&prLink, "link", "l", "", "GitHub Pull Request link (required)")
+	rootCmd.MarkFlagRequired("link")
 }
 
 func main() {
@@ -49,13 +43,14 @@ func main() {
 }
 
 func fetchAndDisplayDiff() {
-	// auth token is needed.
+	repoOwner, repoName, prNumber := parsePRLink(prLink)
+
 	cmd := exec.Command("gh", "auth", "token")
 	tokenBytes, err := cmd.Output()
 	if err != nil {
 		log.Fatalf("Error getting GitHub token: %v", err)
 	}
-	token := string(tokenBytes[:len(tokenBytes)-1]) // 改行を削除
+	token := strings.TrimSpace(string(tokenBytes))
 
 	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/pulls/%s/files", repoOwner, repoName, prNumber)
 
@@ -90,4 +85,13 @@ func fetchAndDisplayDiff() {
 		fmt.Printf("%s\n", file.Patch)
 		fmt.Printf("```\n\n")
 	}
+}
+
+func parsePRLink(link string) (string, string, string) {
+	re := regexp.MustCompile(`github\.com/([^/]+)/([^/]+)/pull/(\d+)`)
+	matches := re.FindStringSubmatch(link)
+	if len(matches) != 4 {
+		log.Fatalf("Invalid GitHub PR link: %s", link)
+	}
+	return matches[1], matches[2], matches[3]
 }

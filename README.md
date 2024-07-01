@@ -37,28 +37,25 @@ h`git clone https://github.com/danimal141/ext-pr-diff.git`
 
 2. Run the tool:
 
-`./ext-pr-diff --pr <PR_NUMBER> --owner <REPO_OWNER> --repo <REPO_NAME>`
+`./ext-pr-diff --link <PR_LINK>`
 
-Or use short flags:
+Or use short flag:
 
-`./ext-pr-diff -p <PR_NUMBER> -o <REPO_OWNER> -r <REPO_NAME>`
+`./ext-pr-diff -l <PR_LINK>`
 
 Example:
 
-`./ext-pr-diff -p 1 -o danimal141 -r ext-pr-diff`
+`./ext-pr-diff -l https://github.com/danimal141/ext-pr-diff/pull/1`
 
 3. The diff for each file in the PR will be displayed in markdown format.
 
 ## Options
 
-- `--pr`, `-p`: Pull request number (required)
-- `--owner`, `-o`: Repository owner (required)
-- `--repo`, `-r`: Repository name (required)
+- `--link`, `-l`: GitHub Pull Request link (required)
 - `--help`, `-h`: Display help message
 
-
 ## Example
-`bin/ext-pr-diff -p 2094 -o spf13 -r cobra`
+`bin/ext-pr-diff -l https://github.com/spf13/cobra/pull/2094`
 
 This command will fetch the diff for Pull Request #2094 in the spf13/cobra repository. The output will look similar to this:
 
