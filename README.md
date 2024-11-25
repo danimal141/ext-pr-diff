@@ -19,7 +19,7 @@ Before you begin, ensure you have met the following requirements:
 ## Installation
 
 1. Clone the repository:
-h`git clone https://github.com/danimal141/ext-pr-diff.git`
+`git clone https://github.com/danimal141/ext-pr-diff.git`
 
 2. Navigate to the project directory:
 
